@@ -1,0 +1,17 @@
+---
+- hosts: 54.78.152.203
+  become: true
+  tasks:
+    - name: Install httpd
+      yum: name=httpd state=present update_cache=yes
+
+    - name: Start httpd
+      service: 
+        name: httpd 
+        enabled: true
+        state: started
+        
+    - name: Install vue-2048
+      copy:
+        src: ~/vue-2048/dist/
+        dest: /var/www/html

@@ -1,5 +1,0 @@
----
-- hosts: web
-  tasks:
-  - name: Start service apache2, if not started
-    service: name=apache2 state=restarted
