@@ -1,0 +1,28 @@
+---
+- hosts: 3.249.194.96
+  become: true
+  tasks:
+    - name: Install java
+      yum: pkg=java-11-amazon-corretto-headless state=present update_cache=yes
+        
+    - name: Install Spring Boot
+      copy:
+        src: ~/hello-springrest/build/libs/
+        dest: /var/lib
+
+    - name: Symlink
+      file:
+        src: /var/lib/restservice-0.0.1-SNAPSHOT.jar
+        dest: /etc/init.d/springboot
+        state: hard
+        owner: ec2-user
+        mode: 500
+
+    - name: Start Spring Boot
+      become: true
+      vars:
+        ansible_user: ec2-user
+      sysvinit:
+        name: springboot 
+        enabled: true
+        state: started
