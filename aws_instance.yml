@@ -46,7 +46,9 @@
   gather_facts: true
   vars:
     ansible_user: ec2-user
-  include_tasks: "{{ item }}"
-  loop: 
-    - ec2-vue.yml
-    - ec2-springboot.yaml
+  tasks:
+    - name: Execute tasks
+      include_tasks: "{{ item }}"
+      loop: 
+        - ec2-vue.yml
+        - ec2-springboot.yaml
